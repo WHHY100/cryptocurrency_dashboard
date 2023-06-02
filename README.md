@@ -47,7 +47,7 @@ utrzymają się na niezmiennym poziomie
 
 Skrypt w PHP ma za zadanie odłożyć aktualne dane o kursach kryptowalut do bazy a następnie wystawić je na serwerze w formie CSV gotowej do zaczytania przez dashboard Power BI.
 Power BI nie może połączyć się bezpośrednio z bazą z powodu ograniczeń serwera, z którego korzystam. Skrypt jest uruchamiany automatycznie za pomocą CRONa, 
-który włącza się raz dziennie o godzinie 10:00. Wszystkie dane dostępne w dashboardzie pobierane są tylko raz dziennie o wskazanej w poprzednim zdaniu godzinie.
+który włącza się raz dziennie o godzinie 10:00. Wszystkie dane dostępne w dashboardzie pobierane są tylko raz dziennie o wskazanej godzinie.
 
 ## Technologia
 
