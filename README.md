@@ -51,5 +51,4 @@ który włącza się raz dziennie o godzinie 10:00. Wszystkie dane dostępne w d
 
 ## Technologia
 
-PHP
-Microsoft Power BI
+PHP, Microsoft Power BI
