@@ -1,3 +1,4 @@
+<?php
 const HOST_NAME = '';
 const USER = '';
 const PASSWORD = '';
