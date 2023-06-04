@@ -44,7 +44,6 @@
 	$resultDB = saveDataCurrencyDB($mysqliConnect, $sqlCommand, "tab_currency_price");
 	
 	
-
 	#################################################
     # CREATE CSV FILE #
     #################################################
