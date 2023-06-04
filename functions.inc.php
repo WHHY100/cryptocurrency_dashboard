@@ -58,8 +58,8 @@
 	}
 	
 	# create csv file from db table
-	function createCSV($nameFile, $mysqliConnect): void{
-		$reader = mysqli_query($mysqliConnect, "SELECT * FROM tab_cryptocurrency_price");
+	function createCSV($nameFile, $mysqliConnect, $nameTab): void{
+		$reader = mysqli_query($mysqliConnect, "SELECT * FROM " . $nameTab);
 
 		$file = fopen($nameFile, "w");
 
@@ -76,5 +76,47 @@
 	# close conn to db
 	function closeConnDb($mysqliConnect): void{
 		mysqli_close($mysqliConnect);
+	}
+	
+	# currency - insert sql string
+	function createBatchDatabase($currency, $date){
+
+		$link = "https://api.nbp.pl/api/exchangerates/rates/c/" . $currency . "/" . $date . "/?format=json";
+		$link = "https://api.nbp.pl/api/exchangerates/rates/a/" . $currency . "/?format=json";
+
+		$jsonUndecode = downloaData($link);
+		$jsonDecode = json_decode($jsonUndecode, true);
+			
+		$code = $jsonDecode["code"];
+		$price = round($jsonDecode["rates"][0]["mid"], 2);
+
+		$sql = "INSERT INTO tab_currency_price(create_date, price, currency_base, currency_name) VALUES
+				('" . strval($date) . "', " . filter_var($price, FILTER_SANITIZE_STRING) . ", 'PLN', '" . filter_var($currency, FILTER_SANITIZE_STRING) . "');";
+
+		return $sql;
+	}
+	
+	# insert currency into db
+	function saveDataCurrencyDB($mysqliConnect, $sql, $nameTab){
+	
+		$maxDateInDb = mysqli_query($mysqliConnect, "SELECT MAX(DATE(create_date)) FROM " . $nameTab);
+
+		$maxDate = mysqli_fetch_row($maxDateInDb);
+
+		if ($maxDate[0] == date("Y-m-d")){
+			return False;
+		}
+			
+		try{
+			for($i=0; $i<count($sql); $i++){
+					mysqli_query($mysqliConnect, $sql[$i]);
+					mysqli_commit($mysqliConnect);
+				}
+		}
+		catch (Exception $e) {
+			return False;
+		}
+		
+		return True;
 	}
 	
