@@ -4,7 +4,7 @@
 	require_once "functions.inc.php";
 
 	/* -------------------------------------------------------*/
-    /* GET CRYPTOCURRENCY DATA */
+		/* GET CRYPTOCURRENCY DATA */
 	/* -------------------------------------------------------*/
 	$jsonUndecode = downloaData("https://api.coinstats.app/public/v1/coins?skip=0&limit=5&currency=PLN");
 
@@ -22,7 +22,7 @@
 	$resultSaveDB = saveDataDB($tabCoinName, $tabCoinPrice, $mysqliConnect);
 	
 	/* -------------------------------------------------------*/
-    /* GET CURRENCY DATA */
+		/* GET CURRENCY DATA */
 	/* -------------------------------------------------------*/
 	const CURRENCIES = ['USD', 'CHF', 'EUR', 'GBP', 'CAD'];
 	
@@ -40,7 +40,7 @@
 	
 	
 	/* -------------------------------------------------------*/
-    /* CREATE CSV FILE */
+		/* CREATE CSV FILE */
 	/* -------------------------------------------------------*/
 	# write new CSV if prev step insert new data to db
 	if ($resultSaveDB == True && $resultDB == True){
